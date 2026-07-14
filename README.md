@@ -1,5 +1,6 @@
 # Choreo
 App that builds local connections for people interested in dance covers
+## Make changes to branch dev-v1!
 
 ## 🛠️ Tech Stack & Architecture Plan (In README during Dev, delete later: also found in /docs) 
 
