@@ -2,6 +2,19 @@
 App that builds local connections for people interested in dance covers
 ## ⚠️Make changes to branch dev-v1!⚠️
 
+## How to Run the App:
+First run the Express backend server from within the backend folder:
+```
+cd backend
+node src/server.js
+```
+Then in a different terminal, run the Next.js frontend server from within the frontend folder:
+```
+cd frontend
+npm run dev
+```
+
+
 ## 🛠️ Tech Stack & Architecture Plan (In README during Dev, delete later: also found in /docs) 
 
 Our platform is engineered for rapid development, code reusability, and minimal infrastructure costs. By anchoring the ecosystem in JavaScript/TypeScript, we minimize context switching and ensure a smooth migration path from a Web MVP to a native mobile app.
