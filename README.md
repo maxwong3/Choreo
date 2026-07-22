@@ -1,6 +1,6 @@
 # Choreo
 App that builds local connections for people interested in dance covers
-## ⚠️Make changes to branch dev-v1!⚠️
+## ⚠️Make changes in a separate branch! Not main directly ⚠️
 
 ## How to Run the App:
 First run the Express backend server from within the backend folder:
