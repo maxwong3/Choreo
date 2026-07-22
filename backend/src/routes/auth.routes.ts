@@ -15,9 +15,5 @@ router.post(
     "login",
     asyncHandler(AuthController.login)
 );
-router.post(
-    "/refresh-token",
-    asyncHandler(AuthController.refreshToken)
-);
 
 export default router;

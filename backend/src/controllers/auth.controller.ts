@@ -1,5 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import pool from "../config/db"
+import {
+    LoginInput,
+    RegisterInput,
+} from "../models/auth.validation"
+import { AuthService } from "../services/auth.service"
 
 export class AuthController {
 
@@ -20,23 +25,14 @@ export class AuthController {
         }
         }
     static async register (
-        req: Request,
+        req: Request<{}, {}, RegisterInput>,
         res: Response,
-        next: NextFunction
     ) {
-
+        const user = await AuthService.createUser(req.body);
     }
     static async login (
-        req: Request,
+        req: Request<{}, {}, LoginInput>,
         res: Response,
-        next: NextFunction
-    ) {
-        
-    }
-    static async refreshToken (
-        req: Request,
-        res: Response,
-        next: NextFunction
     ) {
         
     }
