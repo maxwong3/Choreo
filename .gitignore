@@ -3,33 +3,34 @@ node_modules/
 
 # Environment variables
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+!.env.example
 
 # Next.js build output
 .next/
 out/
 
-# Production builds
+# TypeScript / Production builds
 dist/
 build/
 
 # Logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+
+# Coverage
+coverage/
 
 # OS files
 .DS_Store
 Thumbs.db
 
-# VS Code settings
+# IDE
 .vscode/
+.idea/
 
-# Testing coverage
-coverage/
-
-# Misc
-*.log
+# TypeScript
+*.tsbuildinfo
