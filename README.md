@@ -6,7 +6,7 @@ App that builds local connections for people interested in dance covers
 First run the Express backend server from within the backend folder:
 ```
 cd backend
-node src/server.js
+npm run dev
 ```
 Then in a different terminal, run the Next.js frontend server from within the frontend folder:
 ```
