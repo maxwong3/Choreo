@@ -31,4 +31,20 @@ export class AuthService {
 
         return newUser.rows[0];
     }
+
+    static async login(data: LoginInput) {
+        const { username, password } = data;
+
+        const existingUser = await pool.query(`SELECT * FROM users WHERE username = $1`, [username]);
+
+        if (existingUser.rows.length == 0) {
+            throw new Error("No such user with username.");
+        }
+
+        const user = existingUser.rows[0];
+
+        const verify = await AuthUtils.verifyPassword(user.password_hash, password);
+        if (verify == false) throw new Error("Invalid username or password.");
+        return user; 
+    }
 }
