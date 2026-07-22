@@ -13,7 +13,11 @@ Then in a different terminal, run the Next.js frontend server from within the fr
 cd frontend
 npm run dev
 ```
-
+### ⚠️Be sure to run the schema.sql file if your Postgres Database isn't set up yet!
+```
+cd backend
+psql -U [DB_USER] -d [DB_NAME] -f /src/database/schema.sql
+```
 
 ## 🛠️ Tech Stack & Architecture Plan (In README during Dev, delete later: also found in /docs) 
 
