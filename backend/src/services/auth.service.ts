@@ -29,7 +29,15 @@ export class AuthService {
                                     ]
                                     );
 
-        return newUser.rows[0];
+        const user = newUser.rows[0];
+
+        const { accessToken, refreshToken } = AuthUtils.generateTokens({ id: user.id });
+
+        return {
+            user,
+            accessToken: accessToken,
+            refreshToken: refreshToken
+        };
     }
 
     static async login(data: LoginInput) {
@@ -42,9 +50,22 @@ export class AuthService {
         }
 
         const user = existingUser.rows[0];
-
         const verify = await AuthUtils.verifyPassword(user.password_hash, password);
+        
         if (verify == false) throw new Error("Invalid username or password.");
-        return user; 
+
+        const { accessToken, refreshToken } = AuthUtils.generateTokens({ id: user.id });
+
+        return {
+            user: {
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                first_name: user.first_name,
+                last_name: user.last_name
+            },
+            accessToken: accessToken,
+            refreshToken: refreshToken
+        }; 
     }
 }
