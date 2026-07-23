@@ -1,65 +1,170 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+
+    // Login state
+    const [loginUsername, setLoginUsername] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
+
+    const [token, setToken] = useState("");
+    const [response, setResponse] = useState("");
+
+    async function register() {
+        const res = await fetch(
+            "http://localhost:5000/api/v1/auth/register",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username,
+                    email,
+                    password,
+                    firstName,
+                    lastName
+                })
+            }
+        );
+
+        const data = await res.json();
+
+        console.log(data);
+
+        setToken(data.accessToken);
+        localStorage.setItem(
+            "accessToken",
+            data.accessToken
+        );
+    }
+
+    async function login() {
+        const res = await fetch(
+            "http://localhost:5000/api/v1/auth/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: loginUsername,
+                    password: loginPassword
+                })
+            }
+        );
+
+        console.log("STATUS:", res.status);
+        console.log("CONTENT TYPE:", res.headers.get("content-type"));
+
+        const data = await res.json();
+
+        setToken(data.accessToken);
+        localStorage.setItem(
+            "accessToken",
+            data.accessToken
+        );
+    }
+
+
+    async function testMe() {
+        const token = localStorage.getItem("accessToken");
+
+        const res = await fetch(
+            "http://localhost:5000/api/v1/auth/me",
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+
+        const data = await res.json();
+
+        setResponse(
+            JSON.stringify(data, null, 2)
+        );
+    }
+
+
+    return (
+        <main>
+            <h1>For API Testing: Access token expires in 30s.</h1>
+
+            <h2>Register</h2>
+
+            <input
+                placeholder="username"
+                onChange={(e) => setUsername(e.target.value)}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+
+            <input
+                placeholder="email"
+                onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <input
+                placeholder="password"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <input
+                placeholder="first name"
+                onChange={(e) => setFirstName(e.target.value)}
+            />
+
+            <input
+                placeholder="last name"
+                onChange={(e) => setLastName(e.target.value)}
+            />
+
+            <button onClick={register}>
+                Register
+            </button>
+
+
+            <h2>Login</h2>
+
+            <input 
+              placeholder="username"
+              onChange={(e)=> setLoginUsername(e.target.value)}
+            />
+
+            <input
+              placeholder="password"
+              onChange={(e)=> setLoginPassword(e.target.value)}
+            />
+
+            <button onClick={login}>
+                Login
+            </button>
+
+
+            <h2>Token</h2>
+
+            <textarea
+                value={token}
+                onChange={(e) => setToken(e.target.value)}
+            />
+
+
+            <h2>Protected Route</h2>
+
+            <button onClick={testMe}>
+                Test /me
+            </button>
+
+
+            <pre>
+                {response}
+            </pre>
+        </main>
+    );
 }

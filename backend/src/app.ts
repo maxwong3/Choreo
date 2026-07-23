@@ -1,4 +1,5 @@
 import express, { type Express, type Request, type Response } from 'express';
+import cors from "cors";
 import routes from "./routes";
 
 const app: Express = express();
@@ -6,6 +7,11 @@ const VERSION = '/api/v1';
 const PORT = 5000
 
 app.use(express.json());
+
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+}));
 
 app.use("/api/v1", routes);
 

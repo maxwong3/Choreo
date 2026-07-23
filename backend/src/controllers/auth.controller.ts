@@ -48,7 +48,7 @@ export class AuthController {
 
         const result = await AuthService.login(req.body);
 
-        res.status(200).json({message: "Login successful", result});
+        res.status(200).json(result);
     }
 
     static async me (
@@ -56,7 +56,7 @@ export class AuthController {
         res: Response,
     ) {
         res.json({
-            message: "Authenticated!",
+            message: "You're authenticated!",
             user: req.user
         })
     }
