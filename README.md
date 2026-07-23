@@ -19,6 +19,9 @@ cd backend
 psql -U [DB_USER] -d [DB_NAME] -f /src/database/schema.sql
 ```
 
+## Branch Naming Conventions
+Make sure to name your branches with the feature that you're working on! Then pull request, merge and delete branch. For organization
+
 ## 🛠️ Tech Stack & Architecture Plan (In README during Dev, delete later: also found in /docs) 
 
 Our platform is engineered for rapid development, code reusability, and minimal infrastructure costs. By anchoring the ecosystem in JavaScript/TypeScript, we minimize context switching and ensure a smooth migration path from a Web MVP to a native mobile app.
