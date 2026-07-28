@@ -4,6 +4,7 @@ import {
 } from "../models/auth.validation"
 import pool from "../config/db"
 import { AuthUtils } from "../utils/auth.utils"
+import { ApiError } from "../utils/ApiError"
 
 export class AuthService {
     static async createUser(data: RegisterInput) {
@@ -12,7 +13,7 @@ export class AuthService {
         const existingUser = await pool.query(`SELECT * FROM users WHERE username = $1`, [username]);
 
         if (existingUser.rows.length > 0) {
-            throw new Error("Username already exists.");
+            throw new ApiError(409, "Username already exists.");
         }
 
         const hashedPassword = await AuthUtils.hashPassword(password);
@@ -46,13 +47,13 @@ export class AuthService {
         const existingUser = await pool.query(`SELECT * FROM users WHERE username = $1`, [username]);
 
         if (existingUser.rows.length == 0) {
-            throw new Error("No such user with username.");
+            throw new ApiError(401, "No such user with username.");
         }
 
         const user = existingUser.rows[0];
         const verify = await AuthUtils.verifyPassword(user.password_hash, password);
         
-        if (verify == false) throw new Error("Invalid username or password.");
+        if (verify == false) throw new ApiError(401, "Invalid username or password.");
 
         const { accessToken, refreshToken } = AuthUtils.generateTokens({ id: user.id });
 

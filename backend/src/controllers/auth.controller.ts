@@ -42,13 +42,18 @@ export class AuthController {
     static async login (
         req: Request<{}, {}, LoginInput>,
         res: Response,
+        next: NextFunction
     ) {
-        console.log("POST /api/v1/auth/login request received.");
-        console.log(req.body);
+        try {
+            console.log("POST /api/v1/auth/login request received.");
+            console.log(req.body);
 
-        const result = await AuthService.login(req.body);
+            const result = await AuthService.login(req.body);
 
-        res.status(200).json(result);
+            res.status(200).json({message: "Login successful.", result});
+        } catch (err) {
+            next(err);
+        }
     }
 
     static async me (
