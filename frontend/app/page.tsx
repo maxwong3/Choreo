@@ -16,6 +16,8 @@ export default function Home() {
   const [token, setToken] = useState("");
   const [response, setResponse] = useState("");
 
+  const [loginResult, setLoginResult] = useState("");
+
   async function register() {
     const res = await fetch("http://localhost:5000/api/v1/auth/register", {
       method: "POST",
@@ -55,8 +57,11 @@ export default function Home() {
     console.log("CONTENT TYPE:", res.headers.get("content-type"));
 
     const data = await res.json();
-
+    console.log("LOGIN RESPONSE:", data);
     setToken(data.accessToken);
+
+    if (res.status === 200) setLoginResult("Login Successful!");
+    else setLoginResult("Invalid Username or Password.");
     localStorage.setItem("accessToken", data.accessToken);
   }
 
@@ -120,7 +125,7 @@ export default function Home() {
 
       <button onClick={login}>Login</button>
 
-      <p></p>
+      <p>{loginResult}</p>
 
       <h2>Token</h2>
 
