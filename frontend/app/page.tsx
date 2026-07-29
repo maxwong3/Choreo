@@ -79,6 +79,16 @@ export default function Home() {
     setResponse(JSON.stringify(data, null, 2));
   }
 
+  // Profile routes
+  async function profileTest() {
+    const token = localStorage.getItem("accessToken");
+    const res = await fetch("http://localhost:5000/api/v1/profile/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
   return (
     <main>
       <h1>For API Testing: Access token expires in 30s.</h1>
@@ -136,6 +146,8 @@ export default function Home() {
       <button onClick={testMe}>Test /me</button>
 
       <pre>{response}</pre>
+
+      <button onClick={profileTest}>Profile Test Route</button>
     </main>
   );
 }
