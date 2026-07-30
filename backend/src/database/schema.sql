@@ -16,7 +16,6 @@ CREATE TABLE profiles (
     instagram_url TEXT,
     youtube_url TEXT,
     tiktok_url TEXT,
-    created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),
     experience_level TEXT,
     dance_styles TEXT[]

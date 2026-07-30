@@ -1,3 +1,5 @@
+// Page for backend testing
+
 "use client";
 
 import { useState } from "react";
@@ -17,6 +19,7 @@ export default function Home() {
   const [response, setResponse] = useState("");
 
   const [loginResult, setLoginResult] = useState("");
+  const [myProfileResponse, setMyProfileResponse] = useState("");
 
   async function register() {
     const res = await fetch("http://localhost:5000/api/v1/auth/register", {
@@ -80,13 +83,18 @@ export default function Home() {
   }
 
   // Profile routes
-  async function profileTest() {
+  async function getMyProfile() {
     const token = localStorage.getItem("accessToken");
     const res = await fetch("http://localhost:5000/api/v1/profile/me", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    const data = await res.json();
+
+    if (res.status === 200) setMyProfileResponse(JSON.stringify(data, null, 2));
+    else setMyProfileResponse("You must login to see your Profile!");
   }
 
   return (
@@ -147,7 +155,9 @@ export default function Home() {
 
       <pre>{response}</pre>
 
-      <button onClick={profileTest}>Profile Test Route</button>
+      <button onClick={getMyProfile}>Your Profile</button>
+
+      <pre>{myProfileResponse}</pre>
     </main>
   );
 }
