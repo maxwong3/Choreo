@@ -31,7 +31,7 @@ export class AuthService {
       const user = newUser.rows[0];
 
       await client.query(
-        `INSERT INTO profiles (user_id)
+        `INSERT INTO profiles (user_id, )
                                                 VALUES ($1)    
                                                 `,
         [user.id],
