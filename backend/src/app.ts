@@ -1,6 +1,7 @@
 import express, { type Express, type Request, type Response } from 'express';
 import cors from "cors";
 import routes from "./routes";
+import { errorHandler } from "./middleware/error.middleware";
 
 const app: Express = express();
 const VERSION = '/api/v1';
@@ -27,3 +28,4 @@ app.get(`${VERSION}/health`, (req: Request, res: Response) => {
 });
 
 app.listen(PORT);
+app.use(errorHandler);

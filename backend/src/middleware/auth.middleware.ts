@@ -23,6 +23,7 @@ export const authenticate = (
         const token = extractToken(req.headers.authorization);
 
         if (!token) {
+            console.log("No authentication token.");
             return res.status(401).json({
                 message: "Authentication token required."
             });
@@ -31,6 +32,7 @@ export const authenticate = (
         const payload = AuthUtils.verifyAccessToken(token);
 
         if (!payload) {
+            console.log("Invalid or expired token.");
             return res.status(401).json({
                 message: "Invalid or expired token."
             });

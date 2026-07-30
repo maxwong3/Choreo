@@ -1,170 +1,163 @@
+// Page for backend testing
+
 "use client";
 
 import { useState } from "react";
 
 export default function Home() {
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
-    // Login state
-    const [loginUsername, setLoginUsername] = useState("");
-    const [loginPassword, setLoginPassword] = useState("");
+  // Login state
+  const [loginUsername, setLoginUsername] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
-    const [token, setToken] = useState("");
-    const [response, setResponse] = useState("");
+  const [token, setToken] = useState("");
+  const [response, setResponse] = useState("");
 
-    async function register() {
-        const res = await fetch(
-            "http://localhost:5000/api/v1/auth/register",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username,
-                    email,
-                    password,
-                    firstName,
-                    lastName
-                })
-            }
-        );
+  const [loginResult, setLoginResult] = useState("");
+  const [myProfileResponse, setMyProfileResponse] = useState("");
 
-        const data = await res.json();
+  async function register() {
+    const res = await fetch("http://localhost:5000/api/v1/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        email,
+        password,
+        firstName,
+        lastName,
+      }),
+    });
 
-        console.log(data);
+    const data = await res.json();
 
-        setToken(data.accessToken);
-        localStorage.setItem(
-            "accessToken",
-            data.accessToken
-        );
-    }
+    console.log(data);
 
-    async function login() {
-        const res = await fetch(
-            "http://localhost:5000/api/v1/auth/login",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username: loginUsername,
-                    password: loginPassword
-                })
-            }
-        );
+    setToken(data.accessToken);
+    localStorage.setItem("accessToken", data.accessToken);
+  }
 
-        console.log("STATUS:", res.status);
-        console.log("CONTENT TYPE:", res.headers.get("content-type"));
+  async function login() {
+    const res = await fetch("http://localhost:5000/api/v1/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: loginUsername,
+        password: loginPassword,
+      }),
+    });
 
-        const data = await res.json();
+    console.log("STATUS:", res.status);
+    console.log("CONTENT TYPE:", res.headers.get("content-type"));
 
-        setToken(data.accessToken);
-        localStorage.setItem(
-            "accessToken",
-            data.accessToken
-        );
-    }
+    const data = await res.json();
+    console.log("LOGIN RESPONSE:", data);
+    setToken(data.accessToken);
 
+    if (res.status === 200) setLoginResult("Login Successful!");
+    else setLoginResult("Invalid Username or Password.");
+    localStorage.setItem("accessToken", data.accessToken);
+  }
 
-    async function testMe() {
-        const token = localStorage.getItem("accessToken");
+  async function testMe() {
+    const token = localStorage.getItem("accessToken");
 
-        const res = await fetch(
-            "http://localhost:5000/api/v1/auth/me",
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }
-        );
+    const res = await fetch("http://localhost:5000/api/v1/auth/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-        const data = await res.json();
+    const data = await res.json();
 
-        setResponse(
-            JSON.stringify(data, null, 2)
-        );
-    }
+    setResponse(JSON.stringify(data, null, 2));
+  }
 
+  // Profile routes
+  async function getMyProfile() {
+    const token = localStorage.getItem("accessToken");
+    const res = await fetch("http://localhost:5000/api/v1/profile/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-    return (
-        <main>
-            <h1>For API Testing: Access token expires in 30s.</h1>
+    const data = await res.json();
 
-            <h2>Register</h2>
+    if (res.status === 200) setMyProfileResponse(JSON.stringify(data, null, 2));
+    else setMyProfileResponse("You must login to see your Profile!");
+  }
 
-            <input
-                placeholder="username"
-                onChange={(e) => setUsername(e.target.value)}
-            />
+  return (
+    <main>
+      <h1>For API Testing: Access token expires in 30s.</h1>
 
-            <input
-                placeholder="email"
-                onChange={(e) => setEmail(e.target.value)}
-            />
+      <h2>Register</h2>
 
-            <input
-                placeholder="password"
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-            />
+      <input
+        placeholder="username"
+        onChange={(e) => setUsername(e.target.value)}
+      />
 
-            <input
-                placeholder="first name"
-                onChange={(e) => setFirstName(e.target.value)}
-            />
+      <input placeholder="email" onChange={(e) => setEmail(e.target.value)} />
 
-            <input
-                placeholder="last name"
-                onChange={(e) => setLastName(e.target.value)}
-            />
+      <input
+        placeholder="password"
+        type="password"
+        onChange={(e) => setPassword(e.target.value)}
+      />
 
-            <button onClick={register}>
-                Register
-            </button>
+      <input
+        placeholder="first name"
+        onChange={(e) => setFirstName(e.target.value)}
+      />
 
+      <input
+        placeholder="last name"
+        onChange={(e) => setLastName(e.target.value)}
+      />
 
-            <h2>Login</h2>
+      <button onClick={register}>Register</button>
 
-            <input 
-              placeholder="username"
-              onChange={(e)=> setLoginUsername(e.target.value)}
-            />
+      <h2>Login</h2>
 
-            <input
-              placeholder="password"
-              onChange={(e)=> setLoginPassword(e.target.value)}
-            />
+      <input
+        placeholder="username"
+        onChange={(e) => setLoginUsername(e.target.value)}
+      />
 
-            <button onClick={login}>
-                Login
-            </button>
+      <input
+        placeholder="password"
+        type="password"
+        onChange={(e) => setLoginPassword(e.target.value)}
+      />
 
+      <button onClick={login}>Login</button>
 
-            <h2>Token</h2>
+      <p>{loginResult}</p>
 
-            <textarea
-                value={token}
-                onChange={(e) => setToken(e.target.value)}
-            />
+      <h2>Token</h2>
 
+      <textarea value={token} onChange={(e) => setToken(e.target.value)} />
 
-            <h2>Protected Route</h2>
+      <h2>Protected Route</h2>
 
-            <button onClick={testMe}>
-                Test /me
-            </button>
+      <button onClick={testMe}>Test /me</button>
 
+      <pre>{response}</pre>
 
-            <pre>
-                {response}
-            </pre>
-        </main>
-    );
+      <button onClick={getMyProfile}>Your Profile</button>
+
+      <pre>{myProfileResponse}</pre>
+    </main>
+  );
 }
