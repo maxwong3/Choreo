@@ -11,22 +11,81 @@ interface CreateProjectRequest extends AuthRequest {
   body: CreateProjectInput;
 }
 
+interface EditProjectRequest extends AuthRequest {
+  body: EditProjectInput;
+}
+
 export class ProjectController {
-  static async createProject() {}
+  static async createProject(
+    req: CreateProjectRequest,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      if (!req.user) throw new ApiError(401, "Unauthorized.");
+      const project = await ProjectService.createProject(req.user.id, req.body);
+
+      res.status(201).json(project);
+    } catch (err) {
+      next(err);
+    }
+  }
+  static async getProject(req: Request, res: Response, next: NextFunction) {
+    try {
+      const project = await ProjectService.getProject(Number(req.params.id));
+
+      res.status(200).json(project);
+    } catch (err) {
+      next(err);
+    }
+  }
   static async getUserProjects(
     req: AuthRequest,
     res: Response,
     next: NextFunction,
   ) {
     try {
-      if (!req.user) throw new ApiError(404, "No user found.");
-      const projects = await ProjectService.getProjects(req.user.id);
+      if (!req.user) throw new ApiError(401, "Unauthorized");
+      const projects = await ProjectService.getUserProjects(req.user.id);
 
       res.status(200).json(projects);
     } catch (err) {
       next(err);
     }
   }
-  static async editProject() {}
-  static async deleteProject() {}
+  static async editProject(
+    req: EditProjectRequest,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      if (!req.user) throw new ApiError(401, "Unauthorized.");
+      const project = await ProjectService.editProject(
+        req.user.id,
+        Number(req.params.id),
+        req.body,
+      );
+
+      res.status(200).json(project);
+    } catch (err) {
+      next(err);
+    }
+  }
+  static async deleteProject(
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const projectId = Number(req.params.id);
+      if (isNaN(projectId)) {
+        throw new ApiError(400, "Invalid project ID.");
+      }
+      if (!req.user) throw new ApiError(401, "Unauthorized.");
+      await ProjectService.deleteProject(req.user.id, projectId);
+      res.status(204).send();
+    } catch (err) {
+      next(err);
+    }
+  }
 }

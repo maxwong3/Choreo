@@ -11,6 +11,7 @@ router.get(
   authenticate,
   asyncHandler(ProjectController.getUserProjects),
 );
+router.get("/:id", asyncHandler(ProjectController.getProject));
 router.patch("/:id", authenticate, asyncHandler(ProjectController.editProject));
 router.delete(
   "/:id",
