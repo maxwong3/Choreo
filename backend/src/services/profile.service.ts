@@ -69,6 +69,10 @@ export class ProfileService {
     return user;
   }
   static async update(userId: number, data: UpdateProfileInput) {
+    const cleanedData = Object.fromEntries(
+      Object.entries(data).filter(([_, value]) => value !== ""),
+    );
+
     const {
       bio,
       location,
@@ -78,7 +82,7 @@ export class ProfileService {
       tiktokUrl,
       experienceLevel,
       danceStyles,
-    } = data;
+    } = cleanedData;
 
     const result = await pool.query(
       `
