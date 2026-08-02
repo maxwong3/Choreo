@@ -22,7 +22,8 @@ export class ProjectController {
     next: NextFunction,
   ) {
     try {
-      if (!req.user) throw new ApiError(401, "Unauthorized.");
+      if (!req.user)
+        throw new ApiError(401, "Must be logged in to perform this action.");
       const project = await ProjectService.createProject(req.user.id, req.body);
 
       res.status(201).json(project);
@@ -45,7 +46,8 @@ export class ProjectController {
     next: NextFunction,
   ) {
     try {
-      if (!req.user) throw new ApiError(401, "Unauthorized");
+      if (!req.user)
+        throw new ApiError(401, "Must be logged in to perform this action.");
       const projects = await ProjectService.getUserProjects(req.user.id);
 
       res.status(200).json(projects);
@@ -59,7 +61,8 @@ export class ProjectController {
     next: NextFunction,
   ) {
     try {
-      if (!req.user) throw new ApiError(401, "Unauthorized.");
+      if (!req.user)
+        throw new ApiError(401, "Must be logged in to perform this action.");
       const project = await ProjectService.editProject(
         req.user.id,
         Number(req.params.id),
@@ -81,7 +84,8 @@ export class ProjectController {
       if (isNaN(projectId)) {
         throw new ApiError(400, "Invalid project ID.");
       }
-      if (!req.user) throw new ApiError(401, "Unauthorized.");
+      if (!req.user)
+        throw new ApiError(401, "Must be logged in to perform this action.");
       await ProjectService.deleteProject(req.user.id, projectId);
       res.status(204).send();
     } catch (err) {

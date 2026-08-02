@@ -3,6 +3,7 @@ import authRoutes from "./auth.routes";
 import profileRoutes from "./profile.routes";
 import projectRoutes from "./project.routes";
 import coverRoutes from "./cover.routes";
+import groupRoutes from "./group.routes";
 
 const router = Router();
 
@@ -13,5 +14,7 @@ router.use("/profile", profileRoutes);
 router.use("/projects", projectRoutes);
 
 router.use("/covers", coverRoutes);
+
+router.use("/groups", groupRoutes);
 
 export default router;

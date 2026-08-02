@@ -15,7 +15,8 @@ interface UpdateProfileRequest extends AuthRequest {
 export class ProfileController {
   static async getMe(req: AuthRequest, res: Response, next: NextFunction) {
     try {
-      if (!req.user) throw new ApiError(404, "No user found.");
+      if (!req.user)
+        throw new ApiError(401, "Must be logged in to perform this action.");
       const profile = await ProfileService.getMe(req.user.id);
 
       res.status(200).json(profile);

@@ -20,7 +20,7 @@ export class CoverController {
   ) {
     try {
       if (!req.user) {
-        throw new ApiError(401, "Unauthorized.");
+        throw new ApiError(401, "Must be logged in to perform this action.");
       }
 
       const cover = await CoverService.createCover(req.user.id, req.body);
@@ -64,7 +64,7 @@ export class CoverController {
   ) {
     try {
       if (!req.user) {
-        throw new ApiError(401, "Unauthorized.");
+        throw new ApiError(401, "Must be logged in to perform this action.");
       }
 
       const cover = await CoverService.editCover(
@@ -86,7 +86,7 @@ export class CoverController {
   ) {
     try {
       if (!req.user) {
-        throw new ApiError(401, "Unauthorized.");
+        throw new ApiError(401, "Must be logged in to perform this action.");
       }
 
       await CoverService.deleteCover(req.user.id, Number(req.params.id));

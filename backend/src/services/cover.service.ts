@@ -159,7 +159,15 @@ export class CoverService {
     coverId: number,
     data: EditCoverInput,
   ) {
-    const { title, description, visibility, video_url, thumbnail_url } = data;
+    const cleanedData = Object.fromEntries(
+      Object.entries(data).filter(([_, value]) => value !== ""),
+    ) as EditCoverInput;
+
+    if (Object.keys(cleanedData).length === 0)
+      throw new ApiError(400, "No fields to update.");
+
+    const { title, description, visibility, video_url, thumbnail_url } =
+      cleanedData;
 
     const result = await pool.query(
       `
