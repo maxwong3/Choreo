@@ -28,7 +28,7 @@ export class GroupController {
 
       const group = await GroupService.createGroup(req.user.id, req.body);
 
-      return res.status(201).json(group);
+      res.status(201).json(group);
     } catch (err) {
       next(err);
     }
@@ -38,7 +38,7 @@ export class GroupController {
       const { groupId } = groupIdParam.parse(req.params);
       const group = await GroupService.getGroup(groupId);
 
-      return res.status(200).json(group);
+      res.status(200).json(group);
     } catch (err) {
       next(err);
     }
@@ -53,7 +53,7 @@ export class GroupController {
         throw new ApiError(401, "Must be logged in to perform this action.");
       const groups = await GroupService.getMyGroups(req.user.id);
 
-      return res.status(200).json(groups);
+      res.status(200).json(groups);
     } catch (err) {
       next(err);
     }
@@ -73,7 +73,7 @@ export class GroupController {
         req.body,
       );
 
-      return res.status(200).json(group);
+      res.status(200).json(group);
     } catch (err) {
       next(err);
     }
@@ -90,7 +90,7 @@ export class GroupController {
       const group = await GroupService.deleteGroup(req.user.id, groupId);
       if (!group) throw new ApiError(404, "No such group.");
 
-      return res.status(204).send();
+      res.status(204).send();
     } catch (err) {
       next(err);
     }
