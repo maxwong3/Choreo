@@ -6,8 +6,8 @@ import { GroupController } from "../controllers/group.controller";
 const router = Router();
 
 router.post("/", authenticate, asyncHandler(GroupController.createGroup));
-router.get("/:groupId", asyncHandler(GroupController.getGroup));
 router.get("/me", authenticate, asyncHandler(GroupController.getMyGroups));
+router.get("/:groupId", asyncHandler(GroupController.getGroup));
 router.patch(
   "/:groupId",
   authenticate,
