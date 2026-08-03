@@ -69,6 +69,11 @@ export class ProfileService {
     return user;
   }
   static async update(userId: number, data: UpdateProfileInput) {
+    // Optional fields when updating, blank fields are removed from payload and not used to update profile
+    const cleanedData = Object.fromEntries(
+      Object.entries(data).filter(([_, value]) => value !== ""),
+    );
+
     const {
       bio,
       location,
@@ -78,7 +83,7 @@ export class ProfileService {
       tiktokUrl,
       experienceLevel,
       danceStyles,
-    } = data;
+    } = cleanedData;
 
     const result = await pool.query(
       `
