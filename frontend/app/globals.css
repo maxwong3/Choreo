@@ -1,26 +1,134 @@
-/* @import "tailwindcss";
+@import "tailwindcss";
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-} */
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* --- Login Page Figma Styles --- */
+
+.login-page {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  padding: 20px;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 658px;
+}
+
+.title {
+  font-family: 'Inter', sans-serif;
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #000000;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.login-card {
+  background: #D9D9D9;
+  border-radius: 50px;
+  width: 100%;
+  padding: 48px 50px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #000000;
+  margin-bottom: 8px;
+  padding-left: 12px;
+}
+
+.form-input {
+  width: 100%;
+  height: 64px;
+  background: #FFFFFF;
+  border-radius: 50px;
+  border: none;
+  padding: 0 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  color: #000000;
+  outline: none;
+}
+
+.forgot-link {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  color: #888888;
+  text-decoration: none;
+  margin-bottom: 28px;
+  padding-left: 12px;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.submit-button {
+  width: 295px;
+  height: 64px;
+  background: #7C7C7C;
+  border-radius: 50px;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-button:hover {
+  background: #5a5a5a;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+  .title {
+    font-size: 56px;
+  }
+  .login-card {
+    padding: 32px 24px;
+  }
+  .submit-button {
+    width: 100%;
+  }
+}
