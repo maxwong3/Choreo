@@ -116,7 +116,8 @@ export default function GroupsPage() {
         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           <span style={{ fontSize: "20px", cursor: "pointer" }}>💬</span>
           <span style={{ fontSize: "20px", cursor: "pointer" }}>📷</span>
-          <div
+          <Link
+            href="/login"
             style={{
               width: "44px",
               height: "44px",
@@ -165,7 +166,9 @@ export default function GroupsPage() {
               fontFamily: "'Inter', sans-serif",
             }}
           />
-          <span style={{ fontSize: "18px", color: "#1E1E1E", cursor: "pointer" }}>
+          <span
+            style={{ fontSize: "18px", color: "#1E1E1E", cursor: "pointer" }}
+          >
             ⚙️
           </span>
         </div>

@@ -1,8 +1,42 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
+
+  const [loginUsername, setLoginUsername] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+
+  const [loginResult, setLoginResult] = useState("");
+
+  async function login() {
+    const res = await fetch("http://localhost:5000/api/v1/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: loginUsername,
+        password: loginPassword,
+      }),
+    });
+
+    const data = await res.json();
+    console.log("STATUS:", res.status);
+    console.log("CONTENT TYPE:", res.headers.get("content-type"));
+    console.log("LOGIN RESPONSE:", data);
+
+    if (res.status === 200) {
+      setLoginResult("");
+      setLoginUsername("");
+      setLoginPassword("");
+      localStorage.setItem("accessToken", data.accessToken);
+      router.push("/groups");
+    } else setLoginResult("Invalid Username or Password.");
+  }
   return (
     <div
       style={{
@@ -42,7 +76,12 @@ export default function LoginPage() {
           boxSizing: "border-box",
         }}
       >
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            login();
+          }}
+        >
           {/* Email or username */}
           <div
             style={{
@@ -60,12 +99,13 @@ export default function LoginPage() {
                 paddingLeft: "8px",
               }}
             >
-              Email or username
+              Username
             </label>
             <input
               type="text"
               id="username"
-              required
+              value={loginUsername}
+              onChange={(e) => setLoginUsername(e.target.value)}
               style={{
                 width: "100%",
                 height: "52px",
@@ -103,7 +143,8 @@ export default function LoginPage() {
             <input
               type="password"
               id="password"
-              required
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
               style={{
                 width: "100%",
                 height: "52px",
@@ -126,13 +167,22 @@ export default function LoginPage() {
               fontSize: "16px",
               color: "#888888",
               textDecoration: "none",
-              marginBottom: "24px",
+              marginBottom: "12px",
               paddingLeft: "8px",
               display: "inline-block",
             }}
           >
             i forgot....
           </Link>
+          <div
+            style={{
+              textAlign: "center",
+              marginBottom: "12px",
+              color: "black",
+            }}
+          >
+            <p>{loginResult}</p>
+          </div>
 
           {/* Button - Scaled from 295px x 64px to 220px x 52px */}
           <div style={{ display: "flex", justifyContent: "center" }}>
