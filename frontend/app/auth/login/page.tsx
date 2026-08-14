@@ -31,7 +31,7 @@ export default function LoginPage() {
     console.log("CONTENT TYPE:", res.headers.get("content-type"));
     console.log("LOGIN RESPONSE:", data);
 
-    if (res.status === 200) {
+    if (res.ok) {
       setLoginResult("");
       setLoginUsername("");
       setLoginPassword("");
@@ -87,7 +87,7 @@ export default function LoginPage() {
           {/* Email or username */}
           <div
             style={{
-              marginBottom: "16px",
+              marginBottom: "12px",
               display: "flex",
               flexDirection: "column",
             }}
@@ -126,7 +126,7 @@ export default function LoginPage() {
           {/* Password */}
           <div
             style={{
-              marginBottom: "12px",
+              marginBottom: "18px",
               display: "flex",
               flexDirection: "column",
             }}
@@ -162,20 +162,6 @@ export default function LoginPage() {
             />
           </div>
 
-          {/* i forgot.... */}
-          <Link
-            href="#"
-            style={{
-              fontSize: "16px",
-              color: "#888888",
-              textDecoration: "none",
-              marginBottom: "12px",
-              paddingLeft: "8px",
-              display: "inline-block",
-            }}
-          >
-            i forgot....
-          </Link>
           <div
             style={{
               textAlign: "center",
@@ -204,6 +190,26 @@ export default function LoginPage() {
             >
               Sign In
             </button>
+          </div>
+          <div
+            style={{
+              textAlign: "center",
+              marginTop: "16px",
+              color: "#888888",
+              fontSize: "16px",
+            }}
+          >
+            Don't have an account?{" "}
+            <Link
+              href="/auth/register"
+              style={{
+                color: "#555555",
+                textDecoration: "none",
+                fontWeight: 600,
+              }}
+            >
+              Sign up
+            </Link>
           </div>
         </form>
       </div>

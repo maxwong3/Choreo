@@ -117,7 +117,7 @@ export default function GroupsPage() {
           <span style={{ fontSize: "20px", cursor: "pointer" }}>💬</span>
           <span style={{ fontSize: "20px", cursor: "pointer" }}>📷</span>
           <Link
-            href="/login"
+            href="/auth/login"
             style={{
               width: "44px",
               height: "44px",

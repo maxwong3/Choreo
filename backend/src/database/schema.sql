@@ -3,8 +3,8 @@ CREATE TABLE users (
     email TEXT UNIQUE,
     username TEXT NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
-    first_name TEXT NOT NULL,
-    last_name TEXT NOT NULL,
+    first_name TEXT,
+    last_name TEXT,
     created_at TIMESTAMP DEFAULT NOW()
 );
 

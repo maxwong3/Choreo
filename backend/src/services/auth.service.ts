@@ -12,21 +12,33 @@ export class AuthService {
     try {
       await client.query("BEGIN");
       const existingUser = await client.query(
-        `SELECT * FROM users WHERE username = $1`,
-        [username],
+        `SELECT username, email FROM users WHERE username = $1 OR email = $2`,
+        [username, email || null],
       );
 
       if (existingUser.rows.length > 0) {
-        throw new ApiError(409, "Username already exists.");
-      }
+        const auser = existingUser.rows[0];
+        if (auser.username === username) {
+          throw new ApiError(409, "Username already exists.");
+        }
 
+        if (email && auser.email === email) {
+          throw new ApiError(409, "Email already exists.");
+        }
+      }
       const hashedPassword = await AuthUtils.hashPassword(password);
 
       const newUser = await client.query(
         `INSERT INTO users (email, username, password_hash, first_name, last_name)
                                         VALUES ($1, $2, $3, $4, $5)
                                         RETURNING id, email, username, first_name, last_name`,
-        [email ?? null, username, hashedPassword, firstName, lastName],
+        [
+          email || null,
+          username,
+          hashedPassword,
+          firstName || null,
+          lastName || null,
+        ],
       );
       const user = newUser.rows[0];
 
@@ -65,7 +77,7 @@ export class AuthService {
     );
 
     if (existingUser.rows.length === 0) {
-      throw new ApiError(401, "No such user with username.");
+      throw new ApiError(401, "Invalid username or password.");
     }
 
     const user = existingUser.rows[0];
