@@ -1,47 +1,45 @@
 "use client";
 
 import Link from "next/link";
-
-const groupsData = [
-  {
-    id: 1,
-    name: "FRESA",
-    gradient: "linear-gradient(180deg, #EB5786 0%, #B0B0B0 100%)",
-    buttonText: "VIEW",
-  },
-  {
-    id: 2,
-    name: "CMU KPDC",
-    gradient: "linear-gradient(180deg, #ED5E90 0%, #B0B0B0 100%)",
-    buttonText: "JOIN",
-  },
-  {
-    id: 3,
-    name: "MANCHESTER UNITED D.C. (DANCE CLUB)",
-    gradient: "linear-gradient(180deg, #EB5786 0%, #B0B0B0 100%)",
-    buttonText: "JOIN",
-  },
-  {
-    id: 4,
-    name: "BALLET IN NYC",
-    gradient: "linear-gradient(180deg, #EB5786 0%, #B0B0B0 100%)",
-    buttonText: "VIEW",
-  },
-  {
-    id: 5,
-    name: "PSU KMPD",
-    gradient: "linear-gradient(180deg, #EB5786 0%, #B0B0B0 100%)",
-    buttonText: "VIEW",
-  },
-  {
-    id: 6,
-    name: "REAL DANCERS MADRID",
-    gradient: "linear-gradient(180deg, #ED5E90 0%, #B0B0B0 100%)",
-    buttonText: "VIEW",
-  },
-];
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Navbar from "../../components/Navbar";
 
 export default function GroupsPage() {
+  const router = useRouter();
+  const [groupsData, setGroupsData] = useState<any[]>([]);
+  const [createHovered, setCreateHovered] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    setIsLoggedIn(!!token);
+    if (!token) {
+      return;
+    }
+    const fetchGroups = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/v1/groups/me", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch groups");
+        }
+
+        const data = await response.json();
+
+        setGroupsData(data);
+      } catch (err) {
+        console.error("Error fetching groups:", err);
+      }
+    };
+    fetchGroups();
+  }, []);
   return (
     <div
       style={{
@@ -50,84 +48,7 @@ export default function GroupsPage() {
         fontFamily: "'Inter', sans-serif",
       }}
     >
-      {/* Navigation Header */}
-      <nav
-        style={{
-          width: "100%",
-          height: "72px",
-          backgroundColor: "#D9D9D9",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 32px",
-          boxSizing: "border-box",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "32px" }}>
-          <span
-            style={{
-              fontSize: "32px",
-              fontWeight: 700,
-              color: "#000000",
-            }}
-          >
-            CHOREO
-          </span>
-
-          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <Link
-              href="/groups"
-              style={{
-                backgroundColor: "#FFFFFF",
-                borderRadius: "100px",
-                padding: "6px 20px",
-                fontSize: "16px",
-                color: "#000000",
-                textDecoration: "none",
-                fontWeight: 500,
-              }}
-            >
-              groups
-            </Link>
-            <Link
-              href="/covers"
-              style={{
-                fontSize: "16px",
-                color: "#000000",
-                textDecoration: "none",
-              }}
-            >
-              covers
-            </Link>
-            <Link
-              href="#"
-              style={{
-                fontSize: "16px",
-                color: "#000000",
-                textDecoration: "none",
-              }}
-            >
-              my projects
-            </Link>
-          </div>
-        </div>
-
-        {/* Right Header Icons */}
-        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-          <span style={{ fontSize: "20px", cursor: "pointer" }}>💬</span>
-          <span style={{ fontSize: "20px", cursor: "pointer" }}>📷</span>
-          <Link
-            href="/auth/login"
-            style={{
-              width: "44px",
-              height: "44px",
-              borderRadius: "50%",
-              backgroundColor: "#FFFFFF",
-            }}
-          />
-        </div>
-      </nav>
-
+      <Navbar />
       {/* Main Content Area */}
       <div
         style={{
@@ -173,6 +94,55 @@ export default function GroupsPage() {
           </span>
         </div>
 
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "40px",
+          }}
+        >
+          <Link
+            href="/groups/create"
+            onMouseEnter={() => setCreateHovered(true)}
+            onMouseLeave={() => setCreateHovered(false)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "8px",
+              minWidth: "210px",
+              height: "52px",
+              padding: "0 28px",
+              backgroundColor: createHovered ? "#EB5786" : "#FFFFFF",
+              border: "2px solid #EB5786",
+              borderRadius: "100px",
+              color: createHovered ? "#FFFFFF" : "#EB5786",
+              textDecoration: "none",
+              fontSize: "17px",
+              fontWeight: 600,
+              letterSpacing: "0.3px",
+              boxShadow: createHovered
+                ? "0px 7px 16px rgba(235, 87, 134, 0.28)"
+                : "0px 3px 8px rgba(235, 87, 134, 0.15)",
+              transform: createHovered ? "translateY(-3px)" : "translateY(0)",
+              transition: "all 0.2s ease",
+            }}
+          >
+            <span
+              style={{
+                fontSize: "24px",
+                fontWeight: 400,
+                lineHeight: 1,
+                transform: createHovered ? "rotate(90deg)" : "rotate(0deg)",
+                transition: "transform 0.2s ease",
+              }}
+            >
+              +
+            </span>{" "}
+            CREATE GROUP{" "}
+          </Link>
+        </div>
+
         {/* Groups Cards Grid - Locked 3-Column Desktop View */}
         <div
           style={{
@@ -190,7 +160,7 @@ export default function GroupsPage() {
                 maxWidth: "310px",
                 height: "410px",
                 borderRadius: "40px",
-                background: group.gradient,
+                background: "linear-gradient(180deg, #EB5786 0%, #B0B0B0 100%)",
                 boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
                 display: "flex",
                 flexDirection: "column",
@@ -217,6 +187,7 @@ export default function GroupsPage() {
 
               {/* Action Button */}
               <button
+                onClick={() => router.push(`/groups/${group.id}`)}
                 style={{
                   width: "170px",
                   height: "60px",
@@ -231,7 +202,7 @@ export default function GroupsPage() {
                   boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                {group.buttonText}
+                VIEW
               </button>
             </div>
           ))}

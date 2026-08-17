@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import Navbar from "../../components/Navbar";
 
 const reelsData = [
   {
@@ -34,121 +35,7 @@ export default function CoversPage() {
         overflow: "hidden",
       }}
     >
-      {/* Header Navigation */}
-      <nav
-        style={{
-          width: "100%",
-          height: "72px",
-          backgroundColor: "#D9D9D9",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 32px",
-          boxSizing: "border-box",
-          flexShrink: 0,
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "32px" }}>
-          <span
-            style={{
-              fontSize: "32px",
-              fontWeight: 700,
-              color: "#000000",
-            }}
-          >
-            CHOREO
-          </span>
-
-          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-            <Link
-              href="/groups"
-              style={{
-                fontSize: "16px",
-                color: "#000000",
-                textDecoration: "none",
-              }}
-            >
-              groups
-            </Link>
-
-            <Link
-              href="/covers"
-              style={{
-                backgroundColor: "#FFFFFF",
-                borderRadius: "100px",
-                padding: "6px 20px",
-                fontSize: "16px",
-                color: "#000000",
-                textDecoration: "none",
-                fontWeight: 500,
-              }}
-            >
-              covers
-            </Link>
-
-            {/* Vertical Separator */}
-            <div
-              style={{
-                width: "1px",
-                height: "28px",
-                backgroundColor: "#000000",
-              }}
-            />
-
-            <Link
-              href="#"
-              style={{
-                fontSize: "16px",
-                color: "#000000",
-                textDecoration: "none",
-              }}
-            >
-              my projects
-            </Link>
-          </div>
-        </div>
-
-        {/* Right Nav Icons */}
-        <div style={{ display: "flex", alignItems: "center", gap: "18px" }}>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#000000"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            style={{ cursor: "pointer" }}
-          >
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
-
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#000000"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            style={{ cursor: "pointer" }}
-          >
-            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-            <circle cx="12" cy="13" r="4" />
-          </svg>
-
-          <div
-            style={{
-              width: "42px",
-              height: "42px",
-              borderRadius: "50%",
-              backgroundColor: "#FFFFFF",
-            }}
-          />
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Main Feed Container */}
       <main
@@ -161,7 +48,7 @@ export default function CoversPage() {
           padding: "24px 0 48px 0",
           gap: "24px",
           scrollSnapType: "y mandatory",
-          scrollPaddingTop: "24px", 
+          scrollPaddingTop: "24px",
         }}
       >
         {reelsData.map((reel) => (
@@ -189,7 +76,7 @@ export default function CoversPage() {
               style={{
                 position: "absolute",
                 right: "18px",
-                bottom: "230px", /* INCREASED FROM 165px TO MOVE ICONS HIGHER */
+                bottom: "230px" /* INCREASED FROM 165px TO MOVE ICONS HIGHER */,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",

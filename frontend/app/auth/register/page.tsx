@@ -70,6 +70,24 @@ export default function RegisterPage() {
         fontFamily: "'Inter', sans-serif",
       }}
     >
+      {/* Return Button */}
+      <Link
+        href="/groups"
+        style={{
+          position: "absolute",
+          top: "54px",
+          left: "52px",
+          backgroundColor: "transparent",
+          border: "none",
+          color: "#555555",
+          fontSize: "16px",
+          fontWeight: 500,
+          cursor: "pointer",
+          padding: "8px 12px",
+        }}
+      >
+        ← Home
+      </Link>
       <h1
         style={{
           fontSize: "64px",

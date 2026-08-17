@@ -1,7 +1,4 @@
 "use client";
-
-/* test */
-
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -53,6 +50,24 @@ export default function LoginPage() {
         fontFamily: "'Inter', sans-serif",
       }}
     >
+      {/* Return Button */}
+      <Link
+        href="/groups"
+        style={{
+          position: "absolute",
+          top: "54px",
+          left: "52px",
+          backgroundColor: "transparent",
+          border: "none",
+          color: "#555555",
+          fontSize: "16px",
+          fontWeight: 500,
+          cursor: "pointer",
+          padding: "8px 12px",
+        }}
+      >
+        ← Home
+      </Link>
       {/* Title - Scaled from 96px to 64px */}
       <h1
         style={{
