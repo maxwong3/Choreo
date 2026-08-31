@@ -7,58 +7,22 @@ interface ProjectCard {
   id: number;
   title: string;
   artist: string;
-  bgUrl: string;
   isLeading: boolean;
 }
 
 const projects: ProjectCard[] = [
-  {
-    id: 1,
-    title: "BAD",
-    artist: "CHRISTOPHER",
-    bgUrl: "/Christopher.jpg",
-    isLeading: true,
-  },
-  {
-    id: 2,
-    title: "HEART ATTACK",
-    artist: "CHUU",
-    bgUrl: "/mbappe CUTER.jpg",
-    isLeading: false,
-  },
-  {
-    id: 3,
-    title: "CHK CHK BOOM",
-    artist: "STRAY KIDS",
-    bgUrl: "/JUDE.jpg",
-    isLeading: false,
-  },
-  {
-    id: 4,
-    title: "FANCY",
-    artist: "TWICE",
-    bgUrl: "/man_2.png",
-    isLeading: false,
-  },
-  {
-    id: 5,
-    title: "GNARLY",
-    artist: "KATSEYE",
-    bgUrl: "/grantchoreogrphary.jpg",
-    isLeading: false,
-  },
-  {
-    id: 6,
-    title: "WDA",
-    artist: "AESPA",
-    bgUrl: "/haaland animal.jpg",
-    isLeading: false,
-  },
+  { id: 1, title: "BAD", artist: "CHRISTOPHER", isLeading: true },
+  { id: 2, title: "HEART ATTACK", artist: "CHUU", isLeading: false },
+  { id: 3, title: "CHK CHK BOOM", artist: "STRAY KIDS", isLeading: false },
+  { id: 4, title: "FANCY", artist: "TWICE", isLeading: false },
+  { id: 5, title: "GNARLY", artist: "KATSEYE", isLeading: false },
+  { id: 6, title: "WDA", artist: "AESPA", isLeading: false },
 ];
 
 export default function ProjectsPage() {
   const [activeTab, setActiveTab] = useState<"popcorn" | "fresa">("popcorn");
-  const [openMenuId, setOpenMenuId] = useState<number | null>(1); // Card 1 open by default per design
+  // Set to null so the hamburger menu shows by default instead of the open 'X' state
+  const [openMenuId, setOpenMenuId] = useState<number | null>(null); 
 
   const toggleMenu = (id: number) => {
     setOpenMenuId((prev) => (prev === id ? null : id));
@@ -76,7 +40,7 @@ export default function ProjectsPage() {
         overflow: "hidden",
       }}
     >
-      {/* Header Navigation - Aligned with AuditionPage */}
+      {/* Header Navigation */}
       <nav
         style={{
           width: "100%",
@@ -221,7 +185,7 @@ export default function ProjectsPage() {
               height: "64px",
               backgroundColor: "#D9D9D9",
               borderRadius: "100px",
-              marginBottom: "36px",
+              marginBottom: "42px",
               display: "flex",
               alignItems: "center",
               padding: "4px",
@@ -273,7 +237,7 @@ export default function ProjectsPage() {
               width: "100%",
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "36px",
+              gap: "50px",
             }}
           >
             {projects.map((item) => {
@@ -284,18 +248,17 @@ export default function ProjectsPage() {
                   key={item.id}
                   style={{
                     width: "100%",
-                    height: "290px",
+                    aspectRatio: "1 / 1", 
                     borderRadius: "40px",
                     position: "relative",
                     boxSizing: "border-box",
                     border: item.isLeading ? "6px solid #E40282" : "none",
-                    backgroundImage: `url(${item.bgUrl})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
+                    backgroundColor: "#C9C9C9",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
+                    // Removed overflow: "hidden" here so the bottom pill isn't clipped
                   }}
                 >
                   {/* Pink Gradient Overlay */}
@@ -305,8 +268,8 @@ export default function ProjectsPage() {
                       inset: 0,
                       borderRadius: item.isLeading ? "34px" : "40px",
                       background: item.isLeading
-                        ? "linear-gradient(180deg, rgba(237, 94, 144, 0.45) 0%, rgba(255, 255, 255, 0.35) 100%)"
-                        : "linear-gradient(180deg, rgba(255, 0, 111, 0.4) 20%, rgba(255, 255, 255, 0) 100%)",
+                        ? "linear-gradient(180deg, rgba(237, 94, 144, 0.55) 0%, rgba(255, 255, 255, 0.35) 100%)"
+                        : "linear-gradient(180deg, rgba(255, 0, 111, 0.45) 20%, rgba(255, 255, 255, 0.15) 100%)",
                       pointerEvents: "none",
                     }}
                   />
