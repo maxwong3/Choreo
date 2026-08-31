@@ -6,25 +6,25 @@ export default function AuditionPage() {
   return (
     <div
       style={{
+        height: "100vh",
         width: "100%",
-        minHeight: "100vh",
         backgroundColor: "#FFFFFF",
         fontFamily: "'Inter', sans-serif",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
+        overflow: "hidden",
       }}
     >
-      {/* Top Header Navigation */}
+      {/* Header Navigation */}
       <nav
         style={{
           width: "100%",
-          height: "89px",
+          height: "72px",
           backgroundColor: "#D9D9D9",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "0 39px",
+          padding: "0 32px",
           boxSizing: "border-box",
           flexShrink: 0,
         }}
@@ -32,7 +32,7 @@ export default function AuditionPage() {
         <div style={{ display: "flex", alignItems: "center", gap: "32px" }}>
           <span
             style={{
-              fontSize: "40px",
+              fontSize: "32px",
               fontWeight: 700,
               color: "#000000",
             }}
@@ -44,9 +44,13 @@ export default function AuditionPage() {
             <Link
               href="/groups"
               style={{
-                fontSize: "20px",
+                backgroundColor: "#FFFFFF",
+                borderRadius: "100px",
+                padding: "6px 20px",
+                fontSize: "16px",
                 color: "#000000",
                 textDecoration: "none",
+                fontWeight: 500,
               }}
             >
               groups
@@ -55,7 +59,7 @@ export default function AuditionPage() {
             <Link
               href="/covers"
               style={{
-                fontSize: "20px",
+                fontSize: "16px",
                 color: "#000000",
                 textDecoration: "none",
               }}
@@ -67,15 +71,15 @@ export default function AuditionPage() {
             <div
               style={{
                 width: "1px",
-                height: "45px",
+                height: "28px",
                 backgroundColor: "#000000",
               }}
             />
 
             <Link
-              href="/projects"
+              href="#"
               style={{
-                fontSize: "20px",
+                fontSize: "16px",
                 color: "#000000",
                 textDecoration: "none",
               }}
@@ -86,26 +90,30 @@ export default function AuditionPage() {
         </div>
 
         {/* Right Nav Icons */}
-        <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "18px" }}>
           <svg
-            width="32"
-            height="31"
+            width="24"
+            height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#1E1E1E"
+            stroke="#000000"
             strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             style={{ cursor: "pointer" }}
           >
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
           </svg>
 
           <svg
-            width="35"
-            height="35"
+            width="24"
+            height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#1E1E1E"
+            stroke="#000000"
             strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             style={{ cursor: "pointer" }}
           >
             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
@@ -114,8 +122,8 @@ export default function AuditionPage() {
 
           <div
             style={{
-              width: "57px",
-              height: "56px",
+              width: "42px",
+              height: "42px",
               borderRadius: "50%",
               backgroundColor: "#FFFFFF",
             }}
@@ -123,355 +131,352 @@ export default function AuditionPage() {
         </div>
       </nav>
 
-      {/* Main Workspace Layout */}
-      <div
+      {/* Main Workspace Body - Adjusted Scale */}
+      <main
         style={{
-          width: "100%",
-          maxWidth: "1440px",
+          flex: 1,
+          overflowY: "auto",
           display: "flex",
-          justifyContent: "space-between",
-          padding: "30px 80px",
+          justifyContent: "center",
+          padding: "32px 32px",
           boxSizing: "border-box",
-          gap: "40px",
         }}
       >
-        {/* Left Side: Reference Video & Takes */}
-        <div style={{ flex: 1, maxWidth: "600px" }}>
-          <h1
-            style={{
-              fontSize: "36px",
-              fontWeight: 700,
-              margin: "0 0 20px 0",
-              color: "#000000",
-            }}
-          >
-            REFERENCE VIDEO
-          </h1>
-
-          {/* Video Placeholder Box */}
-          <div
-            style={{
-              width: "100%",
-              height: "338px",
-              backgroundColor: "#222222",
-              borderRadius: "50px",
-              position: "relative",
-              overflow: "hidden",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <span style={{ color: "#888888", fontSize: "18px" }}>
-              [ Reference Video Placeholder ]
-            </span>
-          </div>
-
-          {/* Video Timeline Control */}
-          <div
-            style={{
-              width: "100%",
-              height: "36px",
-              backgroundColor: "#D9D9D9",
-              borderRadius: "50px",
-              margin: "24px 0 28px 0",
-              position: "relative",
-            }}
-          >
-            {/* Active timeline section */}
-            <div
-              style={{
-                width: "171px",
-                height: "36px",
-                backgroundColor: "#676767",
-                borderRadius: "50px",
-                position: "absolute",
-                left: "158px",
-              }}
-            />
-            {/* Knob handle */}
-            <div
-              style={{
-                width: "42px",
-                height: "42px",
-                backgroundColor: "#FFFFFF",
-                borderRadius: "50%",
-                position: "absolute",
-                left: "259px",
-                top: "-3px",
-                boxShadow: "0px 2px 6px rgba(0,0,0,0.2)",
-              }}
-            />
-          </div>
-
-          {/* Action Control Buttons */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "24px",
-              marginBottom: "40px",
-            }}
-          >
-            <button
-              style={{
-                width: "180px",
-                height: "50px",
-                backgroundColor: "#D8D6D6",
-                border: "none",
-                borderRadius: "100px",
-                fontSize: "20px",
-                cursor: "pointer",
-              }}
-            >
-              Loop
-            </button>
-
-            {/* Play Button */}
-            <button
-              style={{
-                width: "50px",
-                height: "50px",
-                borderRadius: "50%",
-                backgroundColor: "#FFFFFF",
-                border: "2px solid #000000",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-              }}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="#000000">
-                <polygon points="5 3 19 12 5 21 5 3" />
-              </svg>
-            </button>
-
-            <button
-              style={{
-                width: "180px",
-                height: "50px",
-                backgroundColor: "#D8D6D6",
-                border: "none",
-                borderRadius: "100px",
-                fontSize: "20px",
-                cursor: "pointer",
-              }}
-            >
-              Change Speed
-            </button>
-          </div>
-
-          {/* My Takes & Upload Section */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              paddingTop: "10px",
-            }}
-          >
-            {/* Takes Stack Column */}
-            <div>
-              <h2
-                style={{
-                  fontSize: "36px",
-                  fontWeight: 700,
-                  margin: "0 0 24px 0",
-                  color: "#000000",
-                }}
-              >
-                MY TAKES
-              </h2>
-
-              {/* Rotated Card Stack */}
-              <div
-                style={{
-                  position: "relative",
-                  width: "210px",
-                  height: "210px",
-                }}
-              >
-                {/* Back card */}
-                <div
-                  style={{
-                    position: "absolute",
-                    width: "130px",
-                    height: "209px",
-                    backgroundColor: "#9D9D9D",
-                    borderRadius: "30px",
-                    transform: "rotate(-16.53deg)",
-                    top: "10px",
-                    left: "0px",
-                  }}
-                />
-                {/* Middle card */}
-                <div
-                  style={{
-                    position: "absolute",
-                    width: "130px",
-                    height: "209px",
-                    backgroundColor: "#B9B9B9",
-                    borderRadius: "30px",
-                    transform: "rotate(-10.91deg)",
-                    top: "0px",
-                    left: "35px",
-                  }}
-                />
-                {/* Top card with Pink Border */}
-                <div
-                  style={{
-                    position: "absolute",
-                    width: "130px",
-                    height: "209px",
-                    backgroundColor: "#D9D9D9",
-                    border: "5px solid #EB5786",
-                    borderRadius: "30px",
-                    top: "12px",
-                    left: "75px",
-                    boxSizing: "border-box",
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Upload & Submit Column */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <h2
-                style={{
-                  fontSize: "36px",
-                  fontWeight: 700,
-                  margin: "0 0 20px 0",
-                  color: "#000000",
-                }}
-              >
-                UPLOAD
-              </h2>
-
-              {/* Upload Icon */}
-              <div
-                style={{
-                  margin: "10px 0 30px 0",
-                  cursor: "pointer",
-                }}
-              >
-                <svg
-                  width="70"
-                  height="70"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#000000"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="17 8 12 3 7 8" />
-                  <line x1="12" y1="3" x2="12" y2="15" />
-                </svg>
-              </div>
-
-              {/* Submit Button */}
-              <button
-                style={{
-                  width: "176px",
-                  height: "51px",
-                  backgroundColor: "#DEDEDE",
-                  border: "none",
-                  borderRadius: "50px",
-                  fontSize: "32px",
-                  cursor: "pointer",
-                }}
-              >
-                submit
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Side: Camera View & Settings */}
         <div
           style={{
+            width: "100%",
+            maxWidth: "1160px",
             display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
+            justifyContent: "space-between",
+            gap: "50px",
           }}
         >
-          {/* Settings Button */}
-          <button
-            style={{
-              width: "190px",
-              height: "51px",
-              backgroundColor: "#DEDEDE",
-              border: "none",
-              borderRadius: "50px",
-              fontSize: "32px",
-              marginBottom: "14px",
-              cursor: "pointer",
-            }}
-          >
-            settings
-          </button>
-
-          {/* Camera Card View */}
-          <div
-            style={{
-              width: "482px",
-              height: "787px",
-              backgroundColor: "#1A1A1A",
-              borderRadius: "51px",
-              position: "relative",
-              overflow: "hidden",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "flex-end",
-              paddingBottom: "40px",
-              boxSizing: "border-box",
-            }}
-          >
-            <span
+          {/* Left Side: Video Player & Takes */}
+          <div style={{ flex: "1 1 520px", maxWidth: "540px" }}>
+            <h1
               style={{
-                position: "absolute",
-                top: "50%",
-                color: "#666666",
-                fontSize: "18px",
+                fontSize: "26px",
+                fontWeight: 700,
+                margin: "0 0 14px 0",
+                color: "#000000",
               }}
             >
-              [ Live Camera Recording View ]
-            </span>
+              REFERENCE VIDEO
+            </h1>
 
-            {/* Record Control Button */}
+            {/* Adjusted Video Box Placeholder */}
             <div
               style={{
-                width: "134px",
-                height: "134px",
-                borderRadius: "50%",
-                border: "10px solid #FFFFFF",
+                width: "100%",
+                height: "290px",
+                backgroundColor: "#222222",
+                borderRadius: "30px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                cursor: "pointer",
-                zIndex: 10,
+              }}
+            >
+              <span style={{ color: "#888888", fontSize: "15px" }}>
+                [ Reference Video Placeholder ]
+              </span>
+            </div>
+
+            {/* Adjusted Timeline Progress Bar */}
+            <div
+              style={{
+                width: "100%",
+                height: "24px",
+                backgroundColor: "#D9D9D9",
+                borderRadius: "50px",
+                margin: "16px 0 20px 0",
+                position: "relative",
               }}
             >
               <div
                 style={{
-                  width: "54px",
-                  height: "54px",
-                  backgroundColor: "#AD3535",
-                  borderRadius: "10px",
+                  width: "140px",
+                  height: "24px",
+                  backgroundColor: "#676767",
+                  borderRadius: "50px",
+                  position: "absolute",
+                  left: "130px",
+                }}
+              />
+              <div
+                style={{
+                  width: "32px",
+                  height: "32px",
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: "50%",
+                  position: "absolute",
+                  left: "220px",
+                  top: "-4px",
+                  boxShadow: "0px 2px 5px rgba(0,0,0,0.2)",
                 }}
               />
             </div>
+
+            {/* Adjusted Loop / Play / Speed Controls */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "16px",
+                marginBottom: "32px",
+              }}
+            >
+              <button
+                style={{
+                  width: "130px",
+                  height: "40px",
+                  backgroundColor: "#D8D6D6",
+                  border: "none",
+                  borderRadius: "100px",
+                  fontSize: "15px",
+                  fontWeight: 500,
+                  cursor: "pointer",
+                }}
+              >
+                Loop
+              </button>
+
+              <button
+                style={{
+                  width: "42px",
+                  height: "42px",
+                  borderRadius: "50%",
+                  backgroundColor: "#FFFFFF",
+                  border: "3px solid #000000",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#000000">
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+              </button>
+
+              <button
+                style={{
+                  width: "130px",
+                  height: "40px",
+                  backgroundColor: "#D8D6D6",
+                  border: "none",
+                  borderRadius: "100px",
+                  fontSize: "15px",
+                  fontWeight: 500,
+                  cursor: "pointer",
+                }}
+              >
+                Change Speed
+              </button>
+            </div>
+
+            {/* Adjusted My Takes & Upload Columns */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                paddingRight: "10px",
+              }}
+            >
+              {/* Adjusted My Takes Card Stack */}
+              <div>
+                <h2
+                  style={{
+                    fontSize: "24px",
+                    fontWeight: 700,
+                    margin: "0 0 14px 0",
+                    color: "#000000",
+                  }}
+                >
+                  MY TAKES
+                </h2>
+
+                <div
+                  style={{
+                    position: "relative",
+                    width: "160px",
+                    height: "170px",
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      width: "100px",
+                      height: "155px",
+                      backgroundColor: "#9D9D9D",
+                      borderRadius: "20px",
+                      transform: "rotate(-16deg)",
+                      top: "6px",
+                      left: "0px",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      width: "100px",
+                      height: "155px",
+                      backgroundColor: "#B9B9B9",
+                      borderRadius: "20px",
+                      transform: "rotate(-10deg)",
+                      top: "0px",
+                      left: "26px",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      width: "100px",
+                      height: "155px",
+                      backgroundColor: "#D9D9D9",
+                      border: "4px solid #EB5786",
+                      borderRadius: "20px",
+                      top: "10px",
+                      left: "55px",
+                      boxSizing: "border-box",
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Adjusted Upload & Submit */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <h2
+                  style={{
+                    fontSize: "24px",
+                    fontWeight: 700,
+                    margin: "0 0 10px 0",
+                    color: "#000000",
+                  }}
+                >
+                  UPLOAD
+                </h2>
+
+                <div style={{ margin: "6px 0 16px 0", cursor: "pointer" }}>
+                  <svg
+                    width="48"
+                    height="48"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="17 8 12 3 7 8" />
+                    <line x1="12" y1="3" x2="12" y2="15" />
+                  </svg>
+                </div>
+
+                <button
+                  style={{
+                    width: "120px",
+                    height: "40px",
+                    backgroundColor: "#DEDEDE",
+                    border: "none",
+                    borderRadius: "50px",
+                    fontSize: "16px",
+                    fontWeight: 500,
+                    cursor: "pointer",
+                  }}
+                >
+                  submit
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side: Adjusted Settings & Camera Frame */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+            }}
+          >
+            {/* Settings Button */}
+            <button
+              style={{
+                width: "130px",
+                height: "40px",
+                backgroundColor: "#DEDEDE",
+                border: "none",
+                borderRadius: "50px",
+                fontSize: "16px",
+                fontWeight: 500,
+                marginBottom: "14px",
+                cursor: "pointer",
+              }}
+            >
+              settings
+            </button>
+
+            {/* Adjusted Tall Live Recording Camera Box */}
+            <div
+              style={{
+                width: "400px",
+                height: "580px",
+                backgroundColor: "#1A1A1A",
+                borderRadius: "40px",
+                position: "relative",
+                overflow: "hidden",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-end",
+                paddingBottom: "28px",
+                boxSizing: "border-box",
+              }}
+            >
+              <span
+                style={{
+                  position: "absolute",
+                  top: "45%",
+                  color: "#666666",
+                  fontSize: "15px",
+                }}
+              >
+                [ Live Camera Recording View ]
+              </span>
+
+              {/* Adjusted Record Button */}
+              <div
+                style={{
+                  width: "88px",
+                  height: "88px",
+                  borderRadius: "50%",
+                  border: "5px solid #FFFFFF",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  zIndex: 10,
+                }}
+              >
+                <div
+                  style={{
+                    width: "36px",
+                    height: "36px",
+                    backgroundColor: "#AD3535",
+                    borderRadius: "8px",
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

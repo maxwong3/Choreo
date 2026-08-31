@@ -50,7 +50,7 @@ export default function GroupsPage() {
         fontFamily: "'Inter', sans-serif",
       }}
     >
-      {/* Navigation Header */}
+      {/* Header Navigation - Exactly matching CoversPage */}
       <nav
         style={{
           width: "100%",
@@ -61,6 +61,7 @@ export default function GroupsPage() {
           justifyContent: "space-between",
           padding: "0 32px",
           boxSizing: "border-box",
+          flexShrink: 0,
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "32px" }}>
@@ -74,7 +75,7 @@ export default function GroupsPage() {
             CHOREO
           </span>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
             <Link
               href="/groups"
               style={{
@@ -89,6 +90,7 @@ export default function GroupsPage() {
             >
               groups
             </Link>
+
             <Link
               href="/covers"
               style={{
@@ -99,6 +101,16 @@ export default function GroupsPage() {
             >
               covers
             </Link>
+
+            {/* Vertical Separator */}
+            <div
+              style={{
+                width: "1px",
+                height: "28px",
+                backgroundColor: "#000000",
+              }}
+            />
+
             <Link
               href="#"
               style={{
@@ -112,15 +124,41 @@ export default function GroupsPage() {
           </div>
         </div>
 
-        {/* Right Header Icons */}
-        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-          <span style={{ fontSize: "20px", cursor: "pointer" }}>💬</span>
-          <span style={{ fontSize: "20px", cursor: "pointer" }}>📷</span>
-          <Link
-            href="/login"
+        {/* Right Nav Icons */}
+        <div style={{ display: "flex", alignItems: "center", gap: "18px" }}>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#000000"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ cursor: "pointer" }}
+          >
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#000000"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ cursor: "pointer" }}
+          >
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+            <circle cx="12" cy="13" r="4" />
+          </svg>
+
+          <div
             style={{
-              width: "44px",
-              height: "44px",
+              width: "42px",
+              height: "42px",
               borderRadius: "50%",
               backgroundColor: "#FFFFFF",
             }}
